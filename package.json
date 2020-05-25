@@ -1,0 +1,42 @@
+{
+  "name": "developers-api",
+  "version": "1.0.0",
+  "description": "Developer registry, to know the programming languages ​​they know and their GitHub repository",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.js --exec babel-node",
+    "setup": "nodemon src/setup.js --exec babel-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edwineverth/developers-api.git"
+  },
+  "keywords": [],
+  "author": "Edwin Belduma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Edwineverth/developers-api/issues"
+  },
+  "homepage": "https://github.com/Edwineverth/developers-api#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.8.7",
+    "chalk": "^4.0.0",
+    "consign": "^0.1.6",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "inquirer": "^7.1.0",
+    "md5": "^2.2.1",
+    "morgan": "^1.10.0",
+    "sequelize": "^5.21.10",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "nodemon": "^2.0.4"
+  }
+}
