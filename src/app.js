@@ -19,13 +19,13 @@ app.use(morgan("dev"));
 app.use(json());
 
 //routes
-app.use("/api/developers", developerRouters);
+app.use("/developers", developerRouters);
 // app.use("/api/tasks", taskRoutes);
 
 //Catch 404
 app.use(notFoundHandler);
 
-// Manejadores de errores
+// error handler
 app.use(logErrors);
 app.use(wrapErrors);
 app.use(errorHandler);

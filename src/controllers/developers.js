@@ -80,22 +80,6 @@ export async function updateDeveloper(req, res, next) {
     });
     let updateDeveloper = null;
     if (developer != null) {
-      developer = await Developer.findOne({
-        attributes: [
-          "nombres_completos",
-          "link_github",
-          "tecnologias_conocidas",
-        ],
-        where: {
-          nombres_completos,
-        },
-      });
-      if (developer != null) {
-        return res.status(200).json({
-          message: "There is already a developer with the same name entered",
-          updateDeveloper,
-        });
-      }
       updateDeveloper = await Developer.update(
         {
           nombres_completos,
@@ -104,13 +88,15 @@ export async function updateDeveloper(req, res, next) {
         },
         { where: { id } }
       );
-      return res
-        .status(200)
-        .json({ message: "Developer Updated", updateDeveloper });
+      return res.status(200).json({
+        message: `Developer Updated`,
+        numberRecordsUpdate: updateDeveloper,
+        data: developer,
+      });
     } else {
       return res.status(200).json({
         message: "Developer not Updated, developer not found",
-        updateDeveloper,
+        data: [],
       });
     }
   } catch (err) {
@@ -126,9 +112,10 @@ export async function deleteDeveloper(req, res, next) {
         id,
       },
     });
-    res
-      .status(200)
-      .json({ message: "Developer deleted", count: developerCount });
+    res.status(200).json({
+      message: "Developer deleted",
+      numberRecordsDelete: developerCount,
+    });
   } catch (err) {
     next(err);
   }
