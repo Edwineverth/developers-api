@@ -5,8 +5,16 @@ import {
   createDeveloper,
   updateDeveloper,
   deleteDeveloper,
+  getDeveloper,
 } from "../controllers/developers";
 
+import validationHandler from "../middleware/validationHandler";
+
+import {
+  createDeveloperSchema,
+  updateDeveloperSchema,
+  developerIdSchema,
+} from "../schemas/developer.js";
 // import all controllers
 // import SessionController from './app/controllers/SessionController';
 
@@ -14,8 +22,23 @@ const routes = new Router();
 
 // Add routes
 routes.get("/", getDevelopers);
-routes.post("/", createDeveloper);
-routes.put("/:id", updateDeveloper);
-routes.delete("/:id", deleteDeveloper);
+routes.get(
+  "/:id",
+  validationHandler({ id: developerIdSchema }, "params"),
+  getDeveloper
+);
+
+routes.post("/", validationHandler(createDeveloperSchema), createDeveloper);
+routes.put(
+  "/:id",
+  validationHandler({ id: developerIdSchema }, "params"),
+  validationHandler(updateDeveloperSchema),
+  updateDeveloper
+);
+routes.delete(
+  "/:id",
+  validationHandler({ id: developerIdSchema }, "params"),
+  deleteDeveloper
+);
 
 module.exports = routes;

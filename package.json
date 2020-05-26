@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "@hapi/boom": "^9.1.0",
-    "@hapi/joi": "^17.1.1",
+    "@hapi/joi": "^15.1.0",
     "chalk": "^4.0.0",
     "consign": "^0.1.6",
     "cross-env": "^7.0.2",

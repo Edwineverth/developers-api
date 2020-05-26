@@ -1,6 +1,7 @@
 import joi from "@hapi/joi";
 
-const developerIdSchema = joi.string().regex(/^[0-9a-fA-F]{24}$/);
+//const developerIdSchema = joi.string().regex(/^[0-9a-fA-F]{24}$/);
+const developerIdSchema = joi.number();
 const developerFullName = joi.string().max(200);
 const developerLinkGithub = joi.string().uri();
 const developerTechnology = joi.array().items(joi.string().max(50));
