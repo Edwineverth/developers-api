@@ -1,8 +1,10 @@
 import app from "./app";
 
+import { config } from "./libs/config";
+
 async function main() {
-  await app.listen(3000);
-  console.log("Server on port 5000");
+  await app.listen(config.port);
+  console.log(`Server on port ${config.port}`);
 }
 
 main();
