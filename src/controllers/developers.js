@@ -14,6 +14,19 @@ export async function getDevelopers(req, res, next) {
 export async function createDeveloper(req, res, next) {
   const { nombres_completos, link_github, tecnologias_conocidas } = req.body;
   try {
+    const developer = await Developer.findOne({
+      where: {
+        nombres_completos,
+      },
+    });
+
+    if (developer != null) {
+      return res.status(201).json({
+        data: [],
+        message: "There is already a developer with the same name entered",
+      });
+    }
+
     let newDeveloper = await Developer.create(
       {
         nombres_completos,
@@ -24,6 +37,7 @@ export async function createDeveloper(req, res, next) {
         fields: ["nombres_completos", "link_github", "tecnologias_conocidas"],
       }
     );
+
     if (newDeveloper) {
       return res.status(201).json({
         data: newDeveloper,
@@ -43,6 +57,7 @@ export async function getDeveloper(req, res, next) {
         id,
       },
     });
+    console.log(developer);
     res.status(200).json({
       data: developer,
       message: "developer retrieved",
@@ -57,24 +72,47 @@ export async function updateDeveloper(req, res, next) {
   const { nombres_completos, link_github, tecnologias_conocidas } = req.body;
 
   try {
-    const developer = await Developer.findOne({
+    let developer = await Developer.findOne({
       attributes: ["nombres_completos", "link_github", "tecnologias_conocidas"],
       where: {
         id,
       },
     });
     let updateDeveloper = null;
-
-    updateDeveloper = await Developer.update(
-      {
-        nombres_completos,
-        link_github,
-        tecnologias_conocidas,
-      },
-      { where: { id } }
-    );
-
-    res.status(200).json({ message: "Developer Updated", updateDeveloper });
+    if (developer != null) {
+      developer = await Developer.findOne({
+        attributes: [
+          "nombres_completos",
+          "link_github",
+          "tecnologias_conocidas",
+        ],
+        where: {
+          nombres_completos,
+        },
+      });
+      if (developer != null) {
+        return res.status(200).json({
+          message: "There is already a developer with the same name entered",
+          updateDeveloper,
+        });
+      }
+      updateDeveloper = await Developer.update(
+        {
+          nombres_completos,
+          link_github,
+          tecnologias_conocidas,
+        },
+        { where: { id } }
+      );
+      return res
+        .status(200)
+        .json({ message: "Developer Updated", updateDeveloper });
+    } else {
+      return res.status(200).json({
+        message: "Developer not Updated, developer not found",
+        updateDeveloper,
+      });
+    }
   } catch (err) {
     next(err);
   }

@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "start": "node dist/index.js",
+    "start-db": "node dist/setup.js",
     "dev": "nodemon src/index.js --exec babel-node",
     "setup": "nodemon src/setup.js --exec babel-node"
   },
@@ -22,11 +23,13 @@
   "homepage": "https://github.com/Edwineverth/developers-api#readme",
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
+    "@babel/runtime": "^7.9.6",
     "@hapi/boom": "^9.1.0",
     "@hapi/joi": "^15.1.0",
     "chalk": "^4.0.0",
     "consign": "^0.1.6",
     "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "inquirer": "^7.1.0",
     "md5": "^2.2.1",
@@ -38,7 +41,9 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "nodemon": "^2.0.4"
   }
 }
